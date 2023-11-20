@@ -9,5 +9,5 @@ class  ScalarConverter
         ~ScalarConverter();
         ScalarConverter(ScalarConverter & obj) ;
         ScalarConverter& operator=(ScalarConverter & obj) ;
-        static void convert( std::string& input);
+        static void convert(std::string input);
 };

@@ -10,9 +10,34 @@ Data::~Data()
     std::cout << "Data: Destructor called" << std::endl;
 }
 
-Data::Data(int d1, double d2) : data1(d1), data2(d2) 
+Data::Data(Data const& obj)
 {
-    std::cout << "Data: Constructor copy called" << std::endl;
+    std::cout << "Data: Copy constructor called" << std::endl;
+    *this = obj;
+}
+
+Data& Data::operator=(Data const& obj)
+{
+    (void)obj;
+    std::cout << "Data: Copy asignement operator called" << std::endl;
+    return (*this);
+}
+
+Data::Data(int d1, double d2)
+{
+    this->data1 = d1;
+    this->data2 = d2;
+    std::cout << "Data: Constructor with two parameters called" << std::endl;
+}
+
+int Data::get_data1()
+{
+    return (this->data1);
+}
+
+double Data::get_data2()
+{
+    return (this->data2);
 }
 
 uintptr_t Serializer::serialize(Data* ptr) 
@@ -23,28 +48,4 @@ uintptr_t Serializer::serialize(Data* ptr)
 Data* Serializer::deserialize(uintptr_t raw) 
 {
     return reinterpret_cast<Data*>(raw);
-}
-
-int main() {
-    // Create a Data object
-    Data* originalData = new Data(42, 3.14);
-
-    // Serialize the pointer to uintptr_t
-    uintptr_t serializedPtr = Serializer::serialize(originalData);
-
-    // Deserialize uintptr_t to a pointer
-    Data* deserializedData = Serializer::deserialize(serializedPtr);
-
-    // Check if the deserialized pointer is equal to the original pointer
-    if (deserializedData == originalData) {
-        std::cout << "Serialization and deserialization successful." << std::endl;
-        std::cout << "Original Data: " << originalData->data1 << ", " << originalData->data2 << std::endl;
-    } else {
-        std::cerr << "Serialization and deserialization failed." << std::endl;
-    }
-
-    // Clean up memory
-    delete originalData;
-
-    return 0;
 }

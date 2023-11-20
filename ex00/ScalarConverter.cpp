@@ -18,80 +18,69 @@ ScalarConverter::ScalarConverter(ScalarConverter & obj)
 
 ScalarConverter& ScalarConverter::operator=(ScalarConverter & obj)
 {
+    (void)obj;
     std::cout << "ScalarConverter: assignement operator called" << std::endl;
-    if (this != &obj)
-    {
-
-    }
     return (*this);
 }
 
-void ScalarConverter::convert( std::string& input) {
-    // Convert to char
+void ScalarConverter::convert(std::string input) 
+{
+    //---------------------- Convert to char ----------------------//
     try 
     {
-        char charValue = std::stoi(input);
-        if (isprint(charValue)) 
-        {
-            std::cout << "char: '" << charValue << "'" << std::endl;
-        }
+        char char_nbr = std::stoi(input);
+
+        if (isprint(char_nbr)) 
+            std::cout << "char: '" << char_nbr << "'" << std::endl;
         else 
-        {
-            std::cerr << "Cannot convert to displayable char." << std::endl;
-        }
+            std::cerr << "char: Non displayable" << std::endl;
     } 
     catch (const std::invalid_argument& e) 
     {
-        std::cerr << "Invalid input for char conversion." << std::endl;
+        std::cerr << "char: impossible" << std::endl;
     }
 
-    // Convert to int
+    //---------------------- Convert to int ----------------------//
     try 
     {
-        int intValue = std::stoi(input);
-        std::cout << "int: " << intValue << std::endl;
-    } catch (const std::invalid_argument& e) 
+        int int_nbr = std::stoi(input);
+
+        std::cout << "int: " << int_nbr << std::endl;
+    } 
+    catch (const std::invalid_argument& e) 
     {
-        std::cerr << "Invalid input for int conversion." << std::endl;
+        std::cerr << "int: impossible" << std::endl;
     }
 
-    // Convert to float
+    //----------------------  Convert to float ----------------------//
     try 
     {
         size_t pos;
-        float floatValue = std::stof(input, &pos);
-        if (pos == input.size()) {
-            std::cout << "float: " << floatValue << "f" << std::endl;
-        } 
+        float float_nbr = std::stof(input, &pos);
+
+        if (pos == input.size()) 
+            std::cout << "float: " << float_nbr << "f" << std::endl;
         else 
-        {
-            std::cerr << "Invalid input for float conversion." << std::endl;
-        }
-    } catch (const std::invalid_argument& e)
-     {
-        std::cerr << "Invalid input for float conversion." << std::endl;
+            std::cerr << "float: impossible" << std::endl;
+    } 
+    catch (const std::invalid_argument& e)
+    {
+        std::cerr << "float: impossible" << std::endl;
     }
 
-    // Convert to double
-    try {
+    //----------------------  Convert to double ----------------------//
+    try 
+    {
         size_t pos;
-        double doubleValue = std::stod(input, &pos);
-        if (pos == input.size()) {
-            std::cout << "double: " << doubleValue << std::endl;
-        } else {
-            std::cerr << "Invalid input for double conversion." << std::endl;
-        }
-    } catch (const std::invalid_argument& e) {
-        std::cerr << "Invalid input for double conversion." << std::endl;
+        double double_nbr = std::stod(input, &pos);
+
+        if (pos == input.size()) 
+            std::cout << "double: " << double_nbr << std::endl;
+        else 
+            std::cerr << "double: impossible" << std::endl;
+    } 
+    catch (const std::invalid_argument& e) 
+    {
+        std::cerr << "double: impossible" << std::endl;
     }
-}
-
-int main() {
-    std::string input;
-    std::cout << "Enter a C++ literal: ";
-    std::cin >> input;
-
-    ScalarConverter::convert(input);
-
-    return 0;
 }
