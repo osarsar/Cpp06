@@ -11,3 +11,5 @@ int main(int ac, char **av)
 
     return 0;
 }
+
+//Except for char parameters, only the decimal notation will be used.

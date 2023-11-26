@@ -57,11 +57,10 @@ void ScalarConverter::convert(std::string input)
     {
         size_t pos;
         float float_nbr = std::stof(input, &pos);
-
-        if (pos == input.size()) 
+        if (input[0] == 'n' && input[1] == 'a' && input[2] == 'n')
             std::cout << "float: " << float_nbr << "f" << std::endl;
-        else 
-            std::cerr << "float: impossible" << std::endl;
+        else
+            std::cout << "float: " << float_nbr << ".0f" << std::endl;
     } 
     catch (const std::invalid_argument& e)
     {
@@ -73,11 +72,10 @@ void ScalarConverter::convert(std::string input)
     {
         size_t pos;
         double double_nbr = std::stod(input, &pos);
-
-        if (pos == input.size()) 
+        if (input[0] == 'n' && input[1] == 'a' && input[2] == 'n')
             std::cout << "double: " << double_nbr << std::endl;
-        else 
-            std::cerr << "double: impossible" << std::endl;
+        else
+            std::cout << "double: " << double_nbr << ".0" <<std::endl;
     } 
     catch (const std::invalid_argument& e) 
     {

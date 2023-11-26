@@ -1,13 +1,14 @@
 SRCS =  main.cpp \
-		Serialization.cpp\
+		Serializer.cpp\
+		Data.cpp
 		
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = Serialization
+NAME = Serializer
 
 OBJ =  $(SRCS:.cpp=.o)
 
-%.o : %.cpp Serialization.hpp
+%.o : %.cpp Serializer.hpp Data.hpp
 	@c++ $(FLAGS) -c $< -o $@
 
 $(NAME) : $(OBJ)

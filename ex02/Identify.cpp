@@ -1,13 +1,33 @@
 #include "Identify.hpp"
 
-
-Base* ObjectIdentifier::generate() 
+Identifier::Identifier()
 {
-    // Seed the random number generator
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    std::cout << "Identifier: Constructor called" << std::endl;
+}
 
-    int random = std::rand() % 3;
+Identifier::~Identifier()
+{
+    std::cout << "Identifier: Destructor called" << std::endl;
+}
 
+Identifier::Identifier(Identifier const& obj)
+{
+    std::cout << "Identifier: Copy constructor called" << std::endl;
+    *this = obj;
+}
+
+Identifier& Identifier::operator=(Identifier const& obj)
+{
+    (void)obj;
+    std::cout << "Identifier: Copy asignement operator called" << std::endl;
+    return (*this);
+}
+
+Base* Identifier::generate() 
+{
+    std::srand((std::time(NULL)));
+    int random = rand() % 3;
+    std::cout << random << std::endl;
     switch (random)
     {
         case 0:
@@ -21,19 +41,47 @@ Base* ObjectIdentifier::generate()
     }
 }
 
-void ObjectIdentifier::identify(Base* p) 
+void Identifier::identify(Base* p) 
 {
-    if (dynamic_cast<A*>(p) != nullptr)
+    if (dynamic_cast<A*>(p))              //Why
         std::cout << "A" << std::endl;
-    else if (dynamic_cast<B*>(p) != nullptr)
+    else if (dynamic_cast<B*>(p))
         std::cout << "B" << std::endl;
-    else if (dynamic_cast<C*>(p) != nullptr)
+    else if (dynamic_cast<C*>(p))
         std::cout << "C" << std::endl;
     else
-        std::cerr << "Unknown type" << std::endl;
+        std::cout << "ERROR" << std::endl;
 }
 
-void ObjectIdentifier::identify(Base& p) 
+void Identifier::identify(Base& p) 
 {
-    identify(&p);
+    try
+    {
+        if (dynamic_cast<A*>(&p))
+            std::cout << "A" << std::endl;
+        else
+            throw std::exception();
+
+    }
+    catch (std::exception &e){}
+    try
+    {
+        if (dynamic_cast<B*>(&p))
+            std::cout << "B" << std::endl;
+        else
+            throw std::exception();
+
+    }
+    catch (std::exception &e){}
+    try
+    {
+        if (dynamic_cast<C*>(&p))
+            std::cout << "C" << std::endl;
+        else
+            throw std::exception();
+
+    }
+    catch (std::exception &e){}
+
+    std::cout << "--ERROR--" << std::endl;
 }
